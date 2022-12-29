@@ -1,0 +1,202 @@
+{
+    "midware":{
+        "rules":{
+            "40001":{
+                "type":"Web Service",
+                "name":"Nginx",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: nginx(?:\\/(\\d*\\.?\\d*\\.?\\d*))?"
+            },
+            "40002":{
+                "type":"Web Service",
+                "name":"Apache",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: Apache( httpd)?(?:(?:\\/|\\ )(\\d*\\.?\\d*\\.?\\d*)|\\r\\n)"
+            },
+            "40003":{
+                "type":"Web Service",
+                "name":"Microsoft IIS",
+                "os":"Windows",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: Microsoft-IIS(?:\\/(\\d*\\.?\\d*\\.?\\d*))?"
+            },
+            "40004":{
+                "type":"Web Service",
+                "name":"Tengine",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: Tengine(?:/([\\w\\.-]+))?"
+            },
+
+            "40005":{
+                "type":"Web Service",
+                "name":"Tomcat",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: Apache Tomcat/(\\d[-\\.\\w]+)"
+            },
+            "40006":{
+                "type":"Web Service",
+                "name":"WebSphere",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: WebSphere Application Server[\\/]?(.+)?"
+            },
+            "40007":{
+                "type":"Web Service",
+                "name":"WebLogic",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: WebLogic"
+            },
+            "40008":{
+                "type":"Web Service",
+                "name":"Lighttpd",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: lighttpd/?([\\w\\.-]+)?"
+            },
+            "40009":{
+                "type":"Web Service",
+                "name":"Google Web Server",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: gws/?([\\w\\.-]+)?"
+            },
+            "40010":{
+                "type":"Web Service",
+                "name":"Baidu Web Server",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: BWS/?([\\w\\.-]+)?"
+            },
+            "40011":{
+                "type":"Web Service",
+                "name":"Tencent Web Server",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: TWS/?([\\w\\.-]+)?"
+            },
+
+            "40012":{
+                "type":"Web Service",
+                "name":"LiteSpeed",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: LiteSpeed/?([\\w\\.-]+)?"
+            },
+
+            "40013":{
+                "type":"Web Service",
+                "name":"OpenResty",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: openresty/?([\\w\\.-]+)?"
+            },
+
+            "40014":{
+                "type":"DNS Service",
+                "name":"dnsmasq",
+                "protocol":"UDP",
+                "regex":"\\x07version\\x04bind\\0\\0\\x10\\0\\x03\\xc0\\x0c\\0\\x10\\0\\x03.{7}dnsmasq-(?:([-\\w. +]+)$|ubnt/([\\w.-]+))"
+            },
+            "40015":{
+                "type":"DNS Service",
+                "name":"ISC BIND",
+                "os":"Raspbian Linux",
+                "protocol":"UDP",
+                "regex":"\\x07version\\x04bind\\0\\0\\x10\\0\\x03\\xc0\\x0c\\0\\x10\\0\\x03.{7}(?:BIND )?(\\d[-\\w.+~]*?)-(?:9\\+deb8u[-\\w._+~]*?)?Raspbian"
+            },
+
+            "40016":{
+                "type":"DNS Service",
+                "name":"PowerDNS",
+                "protocol":"UDP",
+                "regex":"\\x07version\\x04bind\\0\\0\\x10\\0[\\x01\\x03]\\xc0\\x0c\\0\\x10\\0[\\x01\\x03].{7}Served by POWERDNS (\\d[-.\\w]+)"
+            },
+
+            "40017":{
+                "type":"DNS Service",
+                "name":"Zyxel ZyWALL dnsd",
+                "protocol":"UDP",
+                "regex":"\\x07version\\x04bind\\0\\0\\x10\\0\\x03\\xc0\\x0c\\0\\x10\\0\\x03.{7}ZyWALL DNS"
+            },
+
+            "40018":{
+                "type":"DNS Service",
+                "name":"Cloudflare public DNS",
+                "protocol":"UDP",
+                "regex":"^(?:..)?\\0\\x06\\x81\\x84\\0\\x01\\0\\0\\0\\0\\0\\0\\x07version\\x04bind\\0\\0\\x10\\0\\x03"
+            },
+            "40019":{
+                "type":"DNS Service",
+                "name":"Microsoft DNS",
+                "os":"Windows",
+                "protocol":"UDP",
+                "regex":"\\x07version\\x04bind\\0\\0\\x10\\0\\x03\\xc0\\x0c\\0\\x10\\0[\\x01\\x03].{7}Microsoft DNS (.+)"
+            },
+
+
+
+            "40020":{
+                "type":"FTP Service",
+                "name":"FileZilla Server",
+                "protocol":"TCP",
+                "regex":"^FZS\\0\\x04...\\0\\0\\x04\\0..\\0\\0."
+            },
+
+
+
+            "40021":{
+                "type":"Mail Service",
+                "name":"Microsoft Exchange",
+                "protocol":"tcp",
+                "regex":"^\\x2bOK Microsoft Exchange POP3 server version ([\\d\\.]+) ready\\x0d\\x0a"
+            },
+
+            "40022":{
+                "type":"Mail Service",
+                "name":"Microsoft Exchange",
+                "protocol":"tcp",
+                "regex":"220[\\x00-\\xff]*Microsoft ESMTP MAIL Service Version: ([\\w._-]+)"
+            },
+
+            "40023":{
+                "type":"Mail Service",
+                "name":"Coremail",
+                "protocol":"tcp",
+                "regex":"^\\x2bOK Welcome to coremail Mail Pop3 Server"
+            },
+
+            "40024":{
+                "type":"Mail Service",
+                "name":"Dovecot",
+                "protocol":"tcp",
+                "regex":"^\\x2a OK[\\x00-\\xff]*Dovecot ready\\x2e\\x0d\\x0a"
+            },
+            "40025":{
+                "type":"Mail Service",
+                "name":"Google Gmail",
+                "protocol":"tcp",
+                "regex":"\\x2bOK Gpop ready for requests from"
+            }
+
+        }
+    }
+}

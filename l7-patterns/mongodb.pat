@@ -1,0 +1,2 @@
+mongodb
+\x02saslSupportedMechs

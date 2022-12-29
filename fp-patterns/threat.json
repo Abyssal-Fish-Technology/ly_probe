@@ -1,0 +1,138 @@
+{
+    "threat":{
+        "rules":{
+            "50001":{
+                "type":"MINE",
+                "name":"ETH",
+                "version":"eth_method",
+                "protocol":"tcp",
+                "regex":"\\x22method\\x22: ?\\x22(eth_submitLogin|eth_getWork|eth_submitHashrate|eth_submitWork)\\x22"
+            },
+            "50002":{
+                "type":"MINE",
+                "name":"Common",
+                "protocol":"tcp",
+                "regex":"\\x22method\\x22: ?\\x22mining\\.(subscribe|notify|authorize|set_difficulty|set_extranonce|ping)\\x22"
+            },
+            "50003":{
+                "type":"SQL",
+                "name":"CRUD",
+                "desc":"操作语句",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"GET [^\\x0d\\x0a]+(updatexml\\(.*concat\\(|(select|delete)\\b.*?from\\b|update\\b.*?set\\b|insert.*?into|union.+select|(group|order)\\sby|truncate( |%20)|(create|alter|drop)\\b.*?table|version_compile_os|information_schema)"
+            },
+            "50004":{
+                "type":"SQL",
+                "name":"CRUD",
+                "desc":"操作语句",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"total",
+                "regex":"POST [\\s\\S]*?\\x0d\\x0a\\x0d\\x0a[\\s\\S]*?(updatexml\\(.*concat\\(|(select|delete)\\b.*?from\\b|update\\b.*?set\\b|insert.*?into|union.+select|(group|order)\\sby|truncate|(create|alter|drop)\\b.*?table|version_compile_os|information_schema)"
+            },
+            "50005":{
+                "type":"CMD",
+                "name":"Log4j2",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"\\${((\\${(:|env:BARFOO|lower|upper):)*[-\\{\\}jndi]+)+:"
+            },            
+            "50006":{
+                "type":"CMD",
+                "name":"system cmd exec",
+                "desc":"执行",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"total",
+                "regex":"GET [^\\x0d\\x0a]+(%26|\\||%7C|;|%3b|%20|=)(systemctl|chkconfig|ifconfig|iptables|ping|tcpdump|echo|gcc|bash)\\b[^&^=]+(&|%26|\\||%7C|;|%3b| |%20|$)"
+            },
+            "50007":{
+                "type":"CODE",
+                "name":"execution",
+                "desc":"执行外部命令",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"total",
+                "regex":"POST [\\s\\S]*?\\x0d\\x0a\\x0d\\x0a[\\s\\S]*?\\?.*?=.*?(eval|shell_exec|exec|pcntl_execl|proc_open|popen|system)(\\(|%28)"
+            },            
+            "50008":{
+                "type":"CODE",
+                "name":"execution",
+                "desc":"执行外部命令",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"total",
+                "regex":"GET [^\\x0d\\x0a]+\\?.*?=.*?(eval|shell_exec|exec|pcntl_execl|proc_open|popen|system)(\\(|%28)"
+            },            
+            "50009":{
+                "type":"XSS",
+                "name":"js code",
+                "desc":"js代码执行",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"GET [^\\x0d\\x0a]+(<|%3C|&lt;)script[^(>|%3E)]*(>|%3E|&gt;).*?(<|%3C|&lt;)\\/script(>|%3E|&gt;)[\\S]* HTTP"
+            },            
+            "50010":{
+                "type":"XSS",
+                "name":"js code",
+                "desc":"js代码执行",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"total",
+                "regex":"POST [\\s\\S]*?\\x0d\\x0a\\x0d\\x0a[\\s\\S]*?(<|%3C|&lt;)script[^(>|%3E)]*(>|%3E|&gt;).*?(<|%3C|&lt;)\\/script(>|%3E|&gt;)[\\S]* HTTP"
+            },            
+            "50011":{
+                "type":"FILE",
+                "name":"system file",
+                "desc":"系统文件",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"head",
+                "regex":"GET [^\\x0d\\x0a]+((\\.|%2e)(\\.|%2e)(\\/|%2F))*?(etc(\\/|%2F)passwd|var(\\/|%2F)log)[\\S]* HTTP"
+            },
+            "50012":{
+                "type":"BACKDOOR",
+                "name":"JTRAM",
+                "os":"Windows",
+                "protocol":"TCP",
+                "regex":"^echo o [\\d.]+ \\d+ >s\\r\\necho common>> s\\r\\necho common>> s\\r\\necho bin>> s\\r\\necho get m220\\.exe"
+            },            
+            "50013":{
+                "type":"WEBSHELL",
+                "name":"Behinder",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"body",
+                "regex":"4eNW1rQ1TnE2zNJbafdykw=="
+            },            
+            "50014":{
+                "type":"WEBSHELL",
+                "name":"Ant-Sword",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"body",
+                "regex":"User-Agent: AntSword"
+            },            
+            "50015":{
+                "type":"WEBSHELL",
+                "name":"Ant-Sword",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"body",
+                "regex":"(%40ini_set|runshellshock)"
+            },
+            "50016":{
+                "type":"WEBSHELL",
+                "name":"Ant-Sword",
+                "protocol":"tcp",
+                "is_http":1,
+                "part":"body",
+                "regex":"(On%20Error%20Resume%20Next%3AFunction%20bd\\x28|Ex%22%26cHr\\x28101\\x29%26%22cute\\x29)"
+            }
+        }
+    }
+}

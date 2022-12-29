@@ -1,0 +1,136 @@
+{
+    "device":{
+        "rules":{
+
+            "20001":{
+                "type":"Webcam",
+                "name":"Android Webcam",
+                "vendor":"Android",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Android Webcam Server v([\\d|\\.]+)"
+            },
+            "20002":{
+                "type":"Webcam",
+                "name":"Logitec Network Camera",
+                "vendor":"Logitec",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Logitec Network Camera"
+            },
+            "20003":{
+                "type":"Webcam",
+                "name":"Hikvision-Webs",
+                "vendor":"Hikvision",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Hikvision-Webs"
+            },
+            "20004":{
+                "type":"Webcam",
+                "name":"TP-Link-ip-camera",
+                "vendor":"TP-Link",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"WWW-Authenticate: .*TP-Link IP-Camera"
+            },
+            "20005":{
+                "type":"Firewall",
+                "name":"Huawei eudemon Firewall",
+                "vendor":"Huawei",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Eudemon Server"
+            },
+            "20006":{
+                "type":"WAF",
+                "name":"Qianxin WAF",
+                "vendor":"Qianxin",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*qianxin-waf"
+            },
+            "20007":{
+                "type":"Router",
+                "name":"TP-Link-wireless",
+                "vendor":"TP-Link",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"WWW-Authenticate: .*TP-LINK Wireless((?: \\w+)+)"
+            },
+            "20008":{
+                "type":"Router",
+                "name":"Linksys router",
+                "vendor":"Linksys",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"WWW-Authenticate: .*L(?:ink[sS]ys|INKSYS)[- ]([-\\w]+)"
+            },
+            "20009":{
+                "type":"Router",
+                "name":"H3C Router",
+                "vendor":"H3C",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"WWW-Authenticate: .*H3C (\\w+)"
+            },
+            "20010":{
+                "type":"Switch",
+                "name":"HP Switch",
+                "vendor":"HP",
+                "protocol":"udp",
+                "regex":"public[\\x00-\\xff]*ProCurve Switch"
+            },
+            "20011":{
+                "type":"Switch",
+                "name":"HP Switch",
+                "vendor":"HP",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"WWW-Authenticate: .*HP (J\\d+[AB])"
+            },
+            "20012":{
+                "type":"Switch",
+                "name":"Cisco-switch",
+                "vendor":"Cisco",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"WWW-Authenticate: .*Cisco CSS"
+            },
+            "20013":{
+                "type":"Network Device",
+                "name":"Ruijie OEM information leakage",
+                "vendor":"Ruijie OEM",
+                "protocol":"TCP",
+                "regex":"var dkey_verify = Get_Verify_Info\\x28"
+            },
+            "20014":{
+                "type":"Network Device",
+                "name":"Cisco Device",
+                "desc":"Telnet",
+                "vendor":"Cisco",
+                "protocol":"TCP",
+                "regex":"^\\xff\\xfd\\x03[\\x00-\\xfe]"
+            },
+            "20015":{
+                "type":"Network Device",
+                "name":"Huawei Device",
+                "desc":"Telnet",
+                "vendor":"Huawei",
+                "protocol":"TCP",
+                "regex":"^\\xff\\xfb\\x01\\xff\\xfb\\x01\\xff\\xfb\\x01\\xff\\xfb\\x03\\xff\\xfd\\x18\\xff\\xfd\\x1f[\\x00-\\xfe]"
+            }
+        }
+    }
+}

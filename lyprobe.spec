@@ -1,0 +1,102 @@
+Summary: network probe
+Name: lyprobe
+Version: 1.0.0
+Release: 1.0.0
+License: GPL
+Group: Networking/Utilities
+URL: http://www.abyssalfish.com.cn/
+Source: lyprobe-%{version}.tar.gz
+Packager: abyssalfish <opensource@abyssalfish.com.cn>
+# Temporary location where the RPM will be built
+BuildRoot:  %{_tmppath}/%{name}-%{version}-root
+Requires: libpcap >= 0.8.3 glibc >= 2.3.5 GeoIP >= 1.4.5
+
+%description
+lyprobe is a NetFlow probe.
+
+%prep
+
+%setup -q
+
+%build
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
+
+if [ -x ./configure ]; then
+  CFLAGS="$RPM_OPT_FLAGS" ./configure 
+else
+  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh 
+fi
+make
+
+# Installation may be a matter of running an install make target or you
+# may need to manually install files with the install command.
+%install
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
+make DESTDIR=$RPM_BUILD_ROOT install 
+
+# Clean out our build directory
+%clean
+rm -fr $RPM_BUILD_ROOT
+
+%files
+/usr/local/bin/lyprobe
+/usr/local/lib/liblyprobe-1.0.0.so
+/usr/local/lib/liblyprobe.a
+/usr/local/lib/liblyprobe.la
+/usr/local/lib/liblyprobe.so
+/usr/local/lib/lyprobe/plugins/librtpPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/librtpPlugin.a
+/usr/local/lib/lyprobe/plugins/librtpPlugin.la
+/usr/local/lib/lyprobe/plugins/librtpPlugin.so
+/usr/local/lib/lyprobe/plugins/libsipPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libsipPlugin.a
+/usr/local/lib/lyprobe/plugins/libsipPlugin.la
+/usr/local/lib/lyprobe/plugins/libsipPlugin.so
+/usr/local/lib/lyprobe/plugins/libdbPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libdbPlugin.a
+/usr/local/lib/lyprobe/plugins/libdbPlugin.la
+/usr/local/lib/lyprobe/plugins/libdbPlugin.so
+/usr/local/lib/lyprobe/plugins/libsmtpPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libsmtpPlugin.a
+/usr/local/lib/lyprobe/plugins/libsmtpPlugin.la
+/usr/local/lib/lyprobe/plugins/libsmtpPlugin.so
+/usr/local/lib/lyprobe/plugins/libdumpPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libdumpPlugin.a
+/usr/local/lib/lyprobe/plugins/libdumpPlugin.la
+/usr/local/lib/lyprobe/plugins/libdumpPlugin.so
+/usr/local/lib/lyprobe/plugins/libhttpPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libhttpPlugin.a
+/usr/local/lib/lyprobe/plugins/libhttpPlugin.la
+/usr/local/lib/lyprobe/plugins/libhttpPlugin.so
+/usr/local/lib/lyprobe/plugins/libflowIdPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libflowIdPlugin.a
+/usr/local/lib/lyprobe/plugins/libflowIdPlugin.la
+/usr/local/lib/lyprobe/plugins/libflowIdPlugin.so
+/usr/local/lib/lyprobe/plugins/libl7Plugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libl7Plugin.a
+/usr/local/lib/lyprobe/plugins/libl7Plugin.la
+/usr/local/lib/lyprobe/plugins/libl7Plugin.so
+/usr/local/lib/lyprobe/plugins/libdnsPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libdnsPlugin.a
+/usr/local/lib/lyprobe/plugins/libdnsPlugin.la
+/usr/local/lib/lyprobe/plugins/libdnsPlugin.so
+/usr/local/lib/lyprobe/plugins/libicmpPlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libicmpPlugin.a
+/usr/local/lib/lyprobe/plugins/libicmpPlugin.la
+/usr/local/lib/lyprobe/plugins/libicmpPlugin.so
+/usr/local/lib/lyprobe/plugins/libservicePlugin-1.0.0.so
+/usr/local/lib/lyprobe/plugins/libservicePlugin.a
+/usr/local/lib/lyprobe/plugins/libservicePlugin.la
+/usr/local/lib/lyprobe/plugins/libservicePlugin.so
+
+
+# Set the default attributes of all of the files specified to have an
+# owner and group of root and to inherit the permissions of the file
+# itself.
+%defattr(-, root, root)
+
+%changelog
+* 2022-12-25 abyssalfish <opensource@abyssalfish.com.cn>
+- Original upstream version
+
+

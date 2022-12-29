@@ -1,0 +1,270 @@
+{
+    "protocol":{
+        "rules":{
+            "10001":{
+                "type":"Service",
+                "name":"HTTP",
+                "regex":"^HTTP/(0\\.9|1\\.0|1\\.1) [1-5][0-9][0-9]|^POST [\\x09-\\x0d -~]* HTTP/([01]\\.[019])"
+            },
+            "10002":{
+                "type":"DNS Service",
+                "name":"DNS",
+                "protocol":"UDP",
+                "regex":"^.....[\\x01\\x02]......[\\x01-?][a-z0-9][\\x01-?a-z]*[\\x02-\\x06][a-z][a-z][fglmoprstuvz]?[aeop]?(um)?"
+            },
+            "10003":{
+                "type":"Service",
+                "name":"SSL",
+                "regex":"^\\x16\\x03\\x00[\\x00-\\xff]{2}[\\x01\\x02][\\x00-\\xff]{3}\\x03[\\x00-\\x03]",
+                "version":"3.0"
+            },
+            "10004":{
+                "type":"Service",
+                "name":"TLS",
+                "regex":"^\\x16\\x03\\x01[\\x00-\\xff]{2}[\\x01\\x02][\\x00-\\xff]{3}\\x03[\\x00-\\x03]",
+                "version":"1.0"
+            },
+            "10005":{
+                "type":"Service",
+                "name":"TLS",
+                "regex":"^\\x16\\x03\\x02[\\x00-\\xff]{2}[\\x01\\x02][\\x00-\\xff]{3}\\x03[\\x00-\\x03]",
+                "version":"1.1"
+            },
+            "10006":{
+                "type":"Service",
+                "name":"TLS",
+                "regex":"^\\x16\\x03\\x03[\\x00-\\xff]{2}[\\x01\\x02][\\x00-\\xff]{3}\\x03[\\x00-\\x03]",
+                "version":"1.2"
+            },
+            "10007":{
+                "type":"Service",
+                "name":"SSH",
+                "regex":"^(?!ssh|SSH)-([12]\\.[0-9])"
+            },
+            "10008":{
+                "type":"Service",
+                "name":"Telnet",
+                "regex":"^\\xff[\\xfb-\\xfe].\\xff[\\xfb-\\xfe].\\xff[\\xfb-\\xfe]"
+            },
+            "10009":{
+                "type":"Service",
+                "name":"NTP",
+                "protocol":"UDP",
+                "regex":"^\\x04\\x01\\x0\\x0\\x0\\x0\\x0\\x0\\x0\\x0\\x0\\x0LOCL....\\x0\\x0\\x0\\x0AAAAA\\x0\\x0!....\\x0\\x0\\x0\\x0....\\x0\\x0\\x0\\x0"
+            },
+            "10010":{
+                "type":"Service",
+                "name":"FTP",
+                "protocol":"TCP",
+                "regex":"^220[- ][-.\\w ]+ftp.*\\r\\n"
+            },
+            
+
+            "10011":{
+                "type":"Service",
+                "name":"TFTP",
+                "regex":"^(?:\\x01|\\x02)[ -~]*(?:netascii|octet|mail)"
+            },
+            "10012":{
+                "type":"Service",
+                "name":"Daytime",
+                "protocol":"TCP",
+                "regex":"^[0-2]\\d:[0-5]\\d:[0-5]\\d [12]\\d\\d\\d/\\d\\d?/\\d\\d?\\n$"
+            },
+
+
+
+
+            "10013":{
+                "type":"Service",
+                "name":"LDAP",
+                "protocol":"TCP",
+                "regex":"^0..?\\x02\\x01\\x01a..?\\n\\x01.\\x04\\0\\x04"
+            },
+
+            "10014":{
+                "type":"Service",
+                "name":"QUIC",
+                "protocol":"UDP",
+                "regex":"^\\rPTIONS sQ\\d\\d\\d"
+            },
+
+            "10015":{
+                "type":"Service",
+                "name":"SLP",
+                "protocol":"TCP",
+                "regex":"^\\x02(\\x02|\\x05)\\0\\0.\\0\\0\\0\\0\\0..\\0.\\w+"
+            },
+            "10016":{
+                "type":"Service",
+                "name":"MDNS",
+                "protocol":"UDP",
+                "regex":"^\\0\\0\\x84\\0\\0\\0\\0\\x05\\0\\0\\0\\0"
+            },
+
+            "10017":{
+                "type":"Service",
+                "name":"BGP",
+                "protocol":"TCP",
+                "regex":"^\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff\\xff..?\\x01[\\x03\\x04]"
+            },
+            "10018":{
+                "type":"Service",
+                "name":"DHCP",
+                "protocol":"UDP",
+                "regex":"^[\\x01\\x02][\\x01- ]\\x06.*c\\x82sc"
+            },
+
+            "10019":{
+                "type":"Service",
+                "name":"NETBIOS",
+                "regex":"\\x81.?.?.[A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P][A-P]"
+            },
+            "10020":{
+                "type":"Service",
+                "name":"NNTP",
+                "regex":"^(?:20[01][\\x09-\\x0d -~]*AUTHINFO USER|20[01][\\x09-\\x0d -~]*news)"
+            },
+            "10021":{
+                "type":"Service",
+                "name":"SIP",
+                "regex":"^(?:invite|register|cancel) sip[\\x09-\\x0d -~]*sip/[0-2]\\.[0-9]"
+            },
+            "10022":{
+                "type":"Service",
+                "name":"SMB",
+                "regex":"\\xffsmb[\\x72\\x25]"
+            },
+            "10023":{
+                "type":"Service",
+                "name":"SOCKS",
+                "regex":"\\x05[\\x01-\\x08]*\\x05[\\x01-\\x08]?.*\\x05[\\x01-\\x03][\\x01\\x03].*\\x05[\\x01-\\x08]?[\\x01\\x03]"
+            },
+
+            "10024":{
+                "type":"Service",
+                "name":"TOR",
+                "regex":"TOR1.*<identity>"
+            },
+            
+            "10025":{
+                "type":"Service",
+                "name":"OpenVPN",
+                "protocol":"TCP",
+                "regex":"^\\0\\x1e@........\\x02\\0\\0\\0\\0\\0\\0\\0\\x007\\xa5&\\x08\\xa2\\x1b\\xa0\\xb1\\0\\0\\0\\0\\0\\x0e@........\\0\\0\\0\\0\\0"
+            },
+
+
+            "10026":{
+                "type":"Service",
+                "name":"Memcached",
+                "protocol":"UDP",
+                "regex":"^\\0\\x01\\0\\0\\0\\x01\\0\\0STAT "
+            },
+
+
+            "10027":{
+                "type":"Database",
+                "name":"MS SQL Server",
+                "os":"Windows",
+                "protocol":"TCP",
+                "regex":"^\\x04\\x01\\x00\\x25\\x00\\x00\\x01"
+            },
+            "10028":{
+                "type":"Database",
+                "name":"Firebird RDBMS",
+                "protocol":"TCP",
+                "regex":"^\\0\\0\\0\\x03\\0\\0\\0.\\0\\0\\0."
+            },
+            
+            "10029":{
+                "type":"Database",
+                "name":"ElasticSearch",
+                "protocol":"TCP",
+                "regex":"\\{\"cluster_name\":\".*\"NODES\":.*\"NAME\":.*\"HOST\":.*\"VERSION\":.*\"SETTINGS\":.*\"DATA\":.*\"WORK\":.*\"HOME\":.*\"CONF\":.*\"LOGS\":.*\"PIDFILE\":"
+            },
+            "10030":{
+                "type":"Database",
+                "name":"HBASE",
+                "protocol":"TCP",
+                "regex":"^[\\x01\\x02][\\x01- ]\\x06.*c\\x82sc"
+            },
+            "10031":{
+                "type":"Database",
+                "name":"HIVE",
+                "regex":"getFileInfo\\.org\\.apache\\.hadoop\\.hdfs\\.protocol\\.ClientProtocol.*hive"
+            },
+            "10032":{
+                "type":"Database",
+                "name":"MongoDB",
+                "regex":"\\x02saslSupportedMechs"
+            },
+            "10033":{
+                "type":"Database",
+                "name":"Oracle",
+                "regex":"DESCRIPTION.*CONNECT_DATA.*SID.*PROTOCOL.*Port.*"
+            },
+            "10034":{
+                "type":"Database",
+                "name":"Postgres",
+                "regex":"client_encoding.*is_superuser.*server_version.*session_authorization"
+            },
+
+            "10035":{
+                "type":"Database",
+                "name":"Redis",
+                "regex":"redis_version:[\\x00-\\xff]*redis_git_sha1:[\\x00-\\xff]*redis_git_dirty:[\\x00-\\xff]*redis_build_id:[\\x00-\\xff]*redis_mode:"
+            },
+
+
+            "10036":{
+                "type":"Mail Service",
+                "name":"IMAP",
+                "regex":"^(?:\\* ok|a[0-9]+ noop)"
+            },
+            "10037":{
+                "type":"Mail Service",
+                "name":"POP3",
+                "regex":"^(?:\\+ok |-err )"
+            },
+            "10038":{
+                "type":"Mail Service",
+                "name":"SMTP",
+                "regex":"^220[\\x09-\\x0d -~]* (?:e?smtp|simple mail)"
+            },
+            "10039":{
+                "type":"Proxy Service",
+                "name":"RDP",
+                "regex":"rdpdr.*rdpsnd.*cliprdr"
+            },
+
+
+            "10040":{
+                "type":"Proxy Service",
+                "name":"RADMIN",
+                "regex":"^\\x01\\x01(?:\\x08\\x08|\\x1b\\x1b)$"
+            },
+            "10041":{
+                "type":"Proxy Service",
+                "name":"RLOGIN",
+                "regex":"^[a-z][a-z0-9][a-z0-9]+/[1-9][0-9]?[0-9]?[0-9]?00"
+            },
+            "10042":{
+                "type":"Proxy Service",
+                "name":"SUNLOGIN",
+                "regex":"^rtunoray\\.remote\\.p2p"
+            },
+            "10043":{
+                "type":"Proxy Service",
+                "name":"VNC",
+                "regex":"^rfb 00[1-9]\\.00[0-9]\\x0a$"
+            },
+            "10044":{
+                "type":"Service",
+                "name":"X11",
+                "protocol":"TCP",
+                "regex":"^\\x01\\0\\x0b\\0\\0......\\0\\0\\0."
+            }
+        }
+    }
+}

@@ -1,0 +1,139 @@
+{
+    "os":{
+        "rules":{
+            
+
+            "30001":{
+                "type":"Windows",
+                "name":"Windows NT",
+                "protocol":"TCP",
+                "is_http":1,
+                "regex":"Server: Microsoft-Windows-NT/(\\d[-.\\w]+)"
+            },
+            "30002":{
+                "type":"Linux",
+                "name":"Linux",
+                "protocol":"TCP",
+                "is_http":1,
+                "regex":"Server: Linux/([\\w._-]+)"
+            },
+
+            "30003":{
+                "type":"Unix",
+                "name":"Mac OS X",
+                "protocol":"TCP",
+                "is_http":1,
+                "regex":"Server: Mac_OS_X-[^-]+-(\\d.[\\w._-]+)"
+            },
+            "30004":{
+                "type":"Unix",
+                "name":"MacOS",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*MacOS X"
+            },
+            "30005":{
+                "type":"Linux",
+                "name":"CentOS",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*CentOS"
+            },
+
+            "30006":{
+                "type":"Linux",
+                "name":"Debian",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Debian"
+            },
+            "30007":{
+                "type":"Linux",
+                "name":"Debian",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"X-Powered-By: .*(?:Debian|dotdeb|(potato|woody|sarge|etch|lenny|squeeze|wheezy|jessie|stretch|buster|sid))"
+            },
+            "30008":{
+                "type":"Unix",
+                "name":"OpenSolaris",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*OpenSolaris"
+            },
+            "30009":{
+                "type":"Linux",
+                "name":"PCLinuxOS",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*PCLinuxOS"
+            },
+
+            "30010":{
+                "type":"Linux",
+                "name":"Red Hat",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Red Hat"
+            },
+            "30011":{
+                "type":"Linux",
+                "name":"Red Hat",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"X-Powered-By: .*Red Hat"
+            },
+
+            "30012":{
+                "type":"Linux",
+                "name":"Scientific Linux",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Scientific Linux"
+            },
+
+            "30013":{
+                "type":"Unix",
+                "name":"SunOS",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*SunOS( [\\d\\.]+)?"
+            },
+            "30014":{
+                "type":"Unix",
+                "name":"SunOS",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Servlet-engine: .*SunOS( [\\d\\.]+)?"
+            },
+            "30015":{
+                "type":"Linux",
+                "name":"Ubuntu",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*Ubuntu"
+            },
+            
+            "30016":{
+                "type":"Windows",
+                "name":"Windows Server",
+                "protocol":"TCP",
+                "is_http":1,
+                "part":"head",
+                "regex":"Server: .*(Win32|Win64)"
+            }
+        }
+    }
+}
