@@ -74,7 +74,7 @@ make
 make install
 
 # 若需要使用规则匹配插件，需手动将所应用的规则移动至指定位置
-cp -r ./fp-pattern /usr/local/lib/lyprobe/plugins/fp-pattern
+cp -r ./fp-patterns /usr/local/lib/lyprobe/plugins/fp-patterns
 ```
 
 ​	`` 因系统环境问题，若运行'autogen.sh'后出现 U_INT系列宏定义错误，可修改'config.h.in'文件中相关宏，将'#define'更改为'#undef'。再次执行'sh ./configure'即可。``
