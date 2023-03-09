@@ -83,19 +83,13 @@ cp -r ./fp-patterns /usr/local/lib/lyprobe/plugins/fp-patterns
 
 ## 运行示例
 
-### 基础示例
-
-​	以守护进程形式在后台运行，监听eth0网卡的数据流量，解析MAC、IP、L4协议、端口、数据量等基础信息，以netflow形式发送至127.0.0.1:9995。
-
-```
-# lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
-```
+​	安装完毕后可通过  **lyprobe -v** 查看版本回显信息验证安装成功
 
 
 
 ### 参数说明
 
-​	通过参数指定数据源、运行模式、解析格式、采集器位置等。
+​	看通过 **lyprobe -h** 查看参数说明与使用帮助。lyprobe可通过参数指定采集信息丰富程度，可通过参数指定数据源、运行模式、解析格式、采集器位置等。可根据需求灵活调整所采集的数据。常用参数如下所示。
 
 ```
 # lyprobe -h 
@@ -135,6 +129,18 @@ lyprobe -n <host:port|none> [-i <interface|dump file>] [-f <filter>]
 
 
 
+### 常用示例
+
+​	监听 -i 指定的eth0网卡的数据流量，采集 -T 所指定数据，包括MAC、IP、L4协议、端口、数据量等基础信息，解析HTTP协议、DNS协议、ICMP协议以及部分数据包规则匹配结果，以netflow形式发送至 -n 指定的网络位置 127.0.0.1:9995，留存规则匹配命中数据包于 -K 所指定本地位置。
+
+```
+lyprobe -T "%IPV4_SRC_ADDR %IPV4_DST_ADDR %IN_PKTS %IN_BYTES %FIRST_SWITCHED %LAST_SWITCHED %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %PROTOCOL %SRC_TOS %DNS_REQ_DOMAIN %DNS_REQ_TYPE %HTTP_URL %HTTP_REQ_METHOD %HTTP_HOST %HTTP_MIME %HTTP_RET_CODE %ICMP_DATA %ICMP_SEQ_NUM %ICMP_PAYLOAD_LEN %SRV_TYPE %SRV_NAME %SRV_VERS %THREAT_TYPE %THREAT_NAME %THREAT_VERS %SRV_TIME %THREAT_TIME" -n 127.0.0.1:9995 -e 0 -w 32768 -k 1 -K /data/cap/3 -G -i eth0
+```
+
+
+
+
+
 ## 插件功能
 
 ### 服务识别插件 - servicePlugin
@@ -144,11 +150,11 @@ lyprobe -n <host:port|none> [-i <interface|dump file>] [-f <filter>]
 ​		指纹规则存放于 **fp-pattern/** 目录中，包含以JSON格式书写的五类规则：
 
 ```
-service.json	-- 应用层协议与服务识别规则
-​device.json	-- 硬件设备识别规则
-​os.json		-- 操作系统识别规则
-​midware.json	-- 软件平台与中间件规则
-​threat.json	-- 异常流量识别规则
+service.json    -- 应用层协议与服务识别规则
+device.json     -- 硬件设备识别规则
+os.json	        -- 操作系统识别规则
+midware.json    -- 软件平台与中间件规则
+threat.json     -- 异常流量识别规则
 ```
 
 
@@ -177,10 +183,10 @@ service.json	-- 应用层协议与服务识别规则
 
 
 
-​		指定字段，在采集数据过程中进行规则匹配，获取到服务、设备、操作系统、中间件的类型、名称、版本等信息以及威胁流量的描述信息。插件留存规则命中的数据包，并通过微秒级的时间戳，对指定数据包进行定位查找。
+​		指定字段，在采集数据过程中进行规则匹配，获取到服务、设备、操作系统、中间件的类型、名称、版本等信息以及威胁流量的描述信息。插件留存规则命中的数据包于-K参数指定的位置，并通过微秒级的时间戳，对指定数据包进行定位查找。
 
 ```
-# lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES %SRV_TYPE %SRV_NAME %SRV_VERS %DEV_TYPE %DEV_NAME %DEV_VEND %DEV_VERS %OS_TYPE %OS_NAME %OS_VERS %MID_TYPE %MID_NAME %MID_VERS %THREAT_TYPE %THREAT_NAME %THREAT_VERS %SRV_TIME %DEV_TIME %OS_TIME %MID_TIME %THREAT_TIME" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
+lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES %SRV_TYPE %SRV_NAME %SRV_VERS %DEV_TYPE %DEV_NAME %DEV_VEND %DEV_VERS %OS_TYPE %OS_NAME %OS_VERS %MID_TYPE %MID_NAME %MID_VERS %THREAT_TYPE %THREAT_NAME %THREAT_VERS %SRV_TIME %DEV_TIME %OS_TIME %MID_TIME %THREAT_TIME" -k 1 -K /data/cap/3 -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
 ```
 
 
@@ -190,7 +196,7 @@ service.json	-- 应用层协议与服务识别规则
 ​		解析PCAP文件的数据流量，实现对DNS协议内容的解析，获取DNS查询域名，查询类型，查询结果关联IP。
 
 ```
-# lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES %DNS_REQ_DOMAIN %DNS_REQ_TYPE %DNS_RES_IP" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
+lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES %DNS_REQ_DOMAIN %DNS_REQ_TYPE %DNS_RES_IP" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
 ```
 
 
@@ -200,7 +206,7 @@ service.json	-- 应用层协议与服务识别规则
 ​		解析PCAP文件的数据流量，实现对HTTP协议内容的解析，获取HTTP协议头部字段信息。
 
 ```
-# lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES %HTTP_URL %HTTP_REQ_METHOD %HTTP_HOST %HTTP_MIME %HTTP_RET_CODE %HTTP_USER_AGENT" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
+lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES %HTTP_URL %HTTP_REQ_METHOD %HTTP_HOST %HTTP_MIME %HTTP_RET_CODE %HTTP_USER_AGENT" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
 ```
 
 
@@ -210,7 +216,7 @@ service.json	-- 应用层协议与服务识别规则
 ​		解析PCAP文件的数据流量，实现对ICMP协议内容的解析，获取ICMP载荷内容等信息。
 
 ```
-# lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES  %ICMP_DATA %ICMP_SEQ_NUM %ICMP_PAYLOAD_LEN" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
+lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4_SRC_PORT %L4_DST_PORT %TCP_FLAGS %SRC_TOS %IN_PKTS %IN_BYTES  %ICMP_DATA %ICMP_SEQ_NUM %ICMP_PAYLOAD_LEN" -n 127.0.0.1:9995 -e 0 -w 32768 -G -i eth0
 ```
 
 
