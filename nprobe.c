@@ -1919,6 +1919,8 @@ static int parseOptions(int argc, char* argv[]) {
         readOnlyGlobals.traceMode = 2, readOnlyGlobals.traceLevel = 5;
         break;
       case 0:
+        readOnlyGlobals.traceMode = 2, readOnlyGlobals.traceLevel = 0;
+        break;
       default:
         readOnlyGlobals.traceMode = 0, readOnlyGlobals.traceLevel = 2;
         break;
