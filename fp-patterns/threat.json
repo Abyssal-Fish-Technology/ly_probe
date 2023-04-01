@@ -21,7 +21,7 @@
                 "protocol":"tcp",
                 "is_http":1,
                 "part":"head",
-                "regex":"GET [^\\x0d\\x0a]+(updatexml\\(.*concat\\(|(select|delete)\\b.*?from\\b|update\\b.*?set\\b|insert.*?into|union.+select|(group|order)\\sby|truncate( |%20)|(create|alter|drop)\\b.*?table|version_compile_os|information_schema)"
+                "regex":"GET [^\\x0d\\x0a]+\\b(updatexml\\(.*concat\\(|(select|delete)\\b.*?from\\b|update\\b.*?set\\b|insert.*?into|union.+select|(group|order)\\sby|truncate( |%20)|(create|alter|drop)\\b.*?table|version_compile_os|information_schema)"
             },
             "50004":{
                 "type":"SQL",
@@ -30,7 +30,7 @@
                 "protocol":"tcp",
                 "is_http":1,
                 "part":"total",
-                "regex":"POST [\\s\\S]*?\\x0d\\x0a\\x0d\\x0a[\\s\\S]*?(updatexml\\(.*concat\\(|(select|delete)\\b.*?from\\b|update\\b.*?set\\b|insert.*?into|union.+select|(group|order)\\sby|truncate|(create|alter|drop)\\b.*?table|version_compile_os|information_schema)"
+                "regex":"POST [\\s\\S]*?\\x0d\\x0a\\x0d\\x0a[\\s\\S]*?\\b(updatexml\\(.*concat\\(|(select|delete)\\b.*?from\\b|update\\b.*?set\\b|insert.*?into|union.+select|(group|order)\\sby|truncate|(create|alter|drop)\\b.*?table|version_compile_os|information_schema)"
             },
             "50005":{
                 "type":"CMD",
