@@ -235,11 +235,6 @@ lyprobe -T "%IN_SRC_MAC %OUT_DST_MAC %IPV4_SRC_ADDR %IPV4_DST_ADDR %PROTOCOL %L4
 
 <img src="./doc/contact-weixin.png" alt="contact-weixin" width="200" />
 
-​    开源负责人：
-
-
-
-<img src="./doc/contact-wangshanbiao.png" alt="contact-wangshanbiao" width="200" />
 
 
 
