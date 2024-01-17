@@ -142,12 +142,12 @@ void initPlugins(int argc, char* argv[]) {
     if(directoryPointer != NULL)
       break;
     else
-      traceEvent(TRACE_NORMAL, "No plugins found in %s", dirPath);
+      traceEvent(TRACE_NORMAL, "Loading plugins from %s ...... Not Found.", dirPath);
   }
   if(directoryPointer == NULL) {
     traceEvent(TRACE_WARNING, "Unable to find plugins directory. nProbe will work without plugins!");
   } else {
-    traceEvent(TRACE_NORMAL, "Loading plugins from %s", dirPath);
+    traceEvent(TRACE_NORMAL, "Loading plugins from %s ...... Loaded.", dirPath);
 
     while((dp = readdir(directoryPointer)) != NULL) {
       if(dp->d_name[0] == '.')

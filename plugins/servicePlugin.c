@@ -533,7 +533,7 @@ bool RegexFunc1(u_int8_t argv_type, struct pthread_argv_t *p){
   if(readOnlyGlobals.traceMode==2)
     traceEvent(TRACE_INFO, "pkt: subject_length %d, head_length %d, subject_string :\n%s", p->subject_length, p->head_length, *(p->subject_string));
   if(patterns[argv_type_index] == NULL)
-    return;
+    return 0;
   struct common_pat_info *pat = patterns[argv_type_index]->next;
   while(pat){
     if( !(pinfo->flow_checked & (1 << argv_type_index)) ) {
@@ -862,13 +862,13 @@ static void SrvPlugin_packet(u_char new_bucket, void *pluginData,
     body = payload;
 
     int has_save_pkt = 0;
-    if(readOnlyGlobals.isSavePcapFile > 1 && pinfo->src_time == 0){
+    if(readOnlyGlobals.isSavePcapFile > 2 && pinfo->src_time == 0){
       pinfo->srcip = *src;
       SavePktToPcap(h, p);
       has_save_pkt = 1;
       pinfo->src_time = h->ts.tv_sec*1000000 + h->ts.tv_usec;
       // traceEvent(TRACE_WARNING, "pinfo->src_time(%u.%u)", h->ts.tv_sec, h->ts.tv_usec);
-    } else if(readOnlyGlobals.isSavePcapFile > 1 && pinfo->dst_time == 0 && cmpIpAddress_s(pinfo->srcip, *dst)){
+    } else if(readOnlyGlobals.isSavePcapFile > 2 && pinfo->dst_time == 0 && cmpIpAddress_s(pinfo->srcip, *dst)){
       SavePktToPcap(h, p);
       has_save_pkt = 1;
       pinfo->dst_time = h->ts.tv_sec*1000000 + h->ts.tv_usec;
@@ -904,8 +904,10 @@ static void SrvPlugin_packet(u_char new_bucket, void *pluginData,
     int save_pkt = 0;
     int i;
     for(i = 1; i <= PAT_TYPE_NUM; i++){
-      if(RegexFunc1(i, pthread_argv) && readOnlyGlobals.isSavePcapFile){
-        save_pkt = i;
+      if(RegexFunc1(i, pthread_argv)){
+        if((readOnlyGlobals.isSavePcapFile == 2) || (readOnlyGlobals.isSavePcapFile == 1 && i == TYPE_THREAT)){
+          save_pkt = 1;
+        }
       }
     }
     if(save_pkt > 0 && has_save_pkt ==0){
